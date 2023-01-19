@@ -6,7 +6,7 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
 
-	/* 	* index = line_len * y + x * (bpp / 8) 
+	/* 		index = line_len * y + x * (bpp / 8) 
 		*	This is the formula that gives the 
 		*
 		*/

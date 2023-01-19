@@ -32,7 +32,7 @@ int	main()
 		free(data.win_ptr);
 		return (MLX_ERROR);
 	}
-	
+
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &esq_close, &data);
 

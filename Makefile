@@ -12,4 +12,7 @@ $(NAME):
 	$(CC) main.c minilibx-linux/libmlx_Linux.a -lX11 -lXext 
 
 main2:
-	$(CC) main2.c minilibx-linux/libmlx_Linux.a -lX11 -lXext 
+	$(CC) main2.c minilibx-linux/libmlx_Linux.a -lX11 -lXext
+
+test:
+	$(CC) fractol_utils.c minilibx-linux/libmlx_Linux.a -lX11 -lXext -lm
