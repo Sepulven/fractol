@@ -3,16 +3,10 @@ NAME	=	fractol
 CC	= gcc
 CFLAGS = -Wall -Werror -Wextra
 
-SRC	= main.c 
+SRC	= main.c fractol_utils.c complex_operations.c
 OBJ	= ${SRC:.o:.c}
 
 all: $(NAME)
 
 $(NAME):
-	$(CC) main.c minilibx-linux/libmlx_Linux.a -lX11 -lXext 
-
-main2:
-	$(CC) main2.c minilibx-linux/libmlx_Linux.a -lX11 -lXext
-
-test:
-	$(CC) fractol_utils.c minilibx-linux/libmlx_Linux.a -lX11 -lXext -lm
+	$(CC) ${SRC} minilibx-linux/libmlx_Linux.a -lX11 -lXext  -lm

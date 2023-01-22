@@ -1,6 +1,10 @@
 {
 	"files.associations": {
-		"fractol.h": "c",
-		"math.h": "c"
+		"complex.h": "c",
+		"complex": "c",
+		"numeric": "c",
+		"cmath": "c",
+		"algorithm": "c",
+		"fractol.h": "c"
 	}
 }

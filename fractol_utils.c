@@ -6,44 +6,76 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:47:52 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/19 17:30:54 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/22 14:07:03 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
 
+#include "fractol.h"
 /*
  * It's going to the point and return the number of iteration.
  * Basically run the formula
  */
-int	apply_formula(double c)
+int	apply_mandelbrot_formula(double x, double y)
 {
 	int		i;
-	double	z;
+	t_comp	z;
+	t_comp	c;
 
-	z = 0;
+	c.real = x / 250;
+	c.imag = y / 250;
 	i = 0;
-	while (i < 500 && fabs(z) <= 2)
+	z.real = 0;
+	z.imag = 0;
+	while (i < MAX_ITERATIONS && fabs_comp(z) <= 2)
 	{
-		z = pow(z, 2) + c;
+		z = add_comp(pow_comp(z), c);
 		i++;
 	}
-	printf("%f:", z);
 	return (i);
 }
 
-int	main(void)
+/* 		index = line_len * y + x * (bpp / 8)
+*	This is the formula that gives the 
+*/
+void	img_put_pix(t_img *img, int x, int y, int color)
 {
-	// printf("%d\n", apply_formula(1 + 0));
-	// printf("%d\n", apply_formula(-1 + 1));
-	// printf("%d\n", apply_formula(-0.5 + 0.1));
-	// printf("%d\n", apply_formula(-0.8 + -0.5));
-	// printf("%d\n", apply_formula(-1.4 + 0));
-	// printf("%d\n", apply_formula(-0.2 + 0.2));
-	// printf("%d\n", apply_formula(-1.135 + -0));
-	// printf("%d\n", apply_formula(-0.2 + -0.1));
-	// printf("%d\n", apply_formula(-1.0 + 0));
-	// printf("%d\n", apply_formula(-1.2 + -1.2));
-	// printf("%d\n", apply_formula(-1.8 + -0.775));
+	char	*pixel;
+
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(int *)pixel = color;
+}
+
+static int	filter_color(int value)
+{
+	if (value == MAX_ITERATIONS)
+		return (0x000000);
+	if (value < 100)
+		return (0xFF0011);
+	return (0xFF15f3);
+}
+
+int	render_img(t_img *img)
+{
+	double	x;
+	double	y;
+	int		color;
+	int		iterations;
+
+	if (!img->mlx_img)
+		return (1);
+	y = 0;
+	while (y <= WINDOW_HEIGHT)
+	{
+		x = 0;
+		while (x <= WINDOW_WIDTH)
+		{
+			iterations = apply_mandelbrot_formula(x - WINDOW_WIDTH / 2,
+					WINDOW_HEIGHT / 2 - y);
+			//printf("%d ", iterations);
+			img_put_pix(img, x++, y, filter_color(iterations));
+		}
+		y++;
+	}
 	return (0);
 }
