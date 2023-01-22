@@ -6,64 +6,56 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/20 21:00:41 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/22 16:16:28 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 /*
  * ! We just need to free memory that was allocatted with malloc!!!
+ * https://tronche.com/gui/x/xlib/events/ -> events doc
  */
 #include "fractol.h"
 
-int	render(t_screen *screen)
+int	render(t_scr *scr)
 {
-	if (!screen->mlx)
+	if (!scr->mlx)
 		return (MLX_ERROR);
-	render_img(&screen->img);
-	mlx_put_image_to_window(screen->mlx,
-		screen->win, screen->img.mlx_img, 0, 0);
+	render_img(&scr->img);
+	mlx_put_image_to_window(scr->mlx, scr->win, scr->img.fractol, 0, 0);
 	return (0);
 }
 
-int	close_window(int keysym, t_screen *screen)
+int	init_screen(t_scr *scr)
 {
-	if (keysym != XK_Escape)
+	scr->mlx = mlx_init();
+	if (!scr->mlx)
 		return (0);
-	mlx_destroy_window(screen->mlx, screen->win);
-	screen->win = NULL;
-	exit(EXIT_SUCCESS);
-	return (0);
-}
-
-/*
- * Handle the outcomes for a clean exit.
- * Needs to free properly the memory.
- */
-int	main(void)
-{
-	t_screen	screen;
-
-	screen.mlx = mlx_init();
-	if (!screen.mlx)
-		return (0);
-	screen.win = mlx_new_window(screen.mlx,
-			WINDOW_WIDTH, WINDOW_HEIGHT, "Fractol-asepulve");
-	if (!screen.win)
+	scr->win = mlx_new_window(scr->mlx, W_WIDTH, W_HEIGHT, "Fractol-asepulve");
+	if (!scr->win)
 	{
-		free(screen.win);
+		free(scr->win);
 		return (0);
 	}
-	screen.img.mlx_img = mlx_new_image(screen.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	screen.img.addr = mlx_get_data_addr(screen.img.mlx_img,
-			&screen.img.bpp, &screen.img.line_len, &screen.img.endian);
-	render(&screen);
-	//mlx_loop_hook(screen.mlx, &render, &screen);
-	mlx_hook(screen.win, KeyPress, KeyPressMask, &close_window, &screen);
-	mlx_loop(screen.mlx);
+	scr->img.fractol = mlx_new_image(scr->mlx, W_WIDTH, W_WIDTH);
+	scr->img.addr = mlx_get_data_addr(scr->img.fractol,
+			&scr->img.bpp, &scr->img.line_len, &scr->img.endian);
+	return (1);
+}
 
-	mlx_destroy_image(screen.mlx, screen.img.mlx_img);
-	mlx_destroy_display(screen.mlx);
-	free(screen.mlx);
+int	main(void)
+{
+	t_scr	scr;
+
+	if (!init_screen(&scr))
+		return (0);
+	render(&scr);
+	if (!scr.mlx)
+		write(1, "ok\n", 3);
+	mlx_hook(scr.win, 17, 1L << 17, &destroy_window, &scr);
+	//mlx_hook(scr.win, KeyPress, KeyPressMask, &close_window, &scr);
+	mlx_loop(scr.mlx);
+	// mlx_destroy_image(scr.mlx, scr.img.fractol);
+	// mlx_destroy_display(scr.mlx);
+	// free(scr.mlx);
 	return (0);
 }

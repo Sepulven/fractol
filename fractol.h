@@ -6,16 +6,12 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/21 00:27:41 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/22 16:30:45 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef FRACTOL_H
-
-
 # define FRACTOL_H 1
-
 
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
@@ -28,40 +24,47 @@
 // # define WINDOW_WIDTH 1366
 // # define WINDOW_HEIGHT 768
 
-# define WINDOW_WIDTH 2000
-# define WINDOW_HEIGHT 2000
+# define W_WIDTH 1280
+# define W_HEIGHT 800
 # define MLX_ERROR 1
-# define MAX_ITERATIONS 100
+# define MAX_ITERATIONS 500
 
-typedef struct s_comp
+typedef struct s_cx
 {
 	double	real;
 	double	imag;
-}	t_comp;
+}	t_cx;
 
 typedef struct s_img
 {
-	void	*mlx_img;
+	void	*fractol;
 	char	*addr;
 	int		bpp;
 	int		line_len;
 	int		endian;
 }	t_img;
 
-typedef struct s_screen
+typedef struct s_scr
 {
 	void	*mlx;
 	void	*win;
 	t_img	img;
-}	t_screen;
+}	t_scr;
 
+/*handle_events.c*/
+int		destroy_window(t_scr *scr);
+int		close_window(int keysym, t_scr *scr);
 
+/*render_utils.c*/
 void	img_put_pix(t_img *img, int x, int y, int color);
 int		render_img(t_img *img);
-int		apply_mandelbrot_formula(double x, double y);
 
-t_comp	add_comp(t_comp comp1, t_comp comp2);
-t_comp	multiply_comp(t_comp comp1, t_comp comp2);
-t_comp	pow_comp(t_comp comp1);
-int		fabs_comp(t_comp comp);
+/*fractol_utils.c*/
+int		mandelbrot_formula(double x, double y);
+
+/*cx_operations_utils.c*/
+t_cx	add_cx(t_cx comp1, t_cx comp2);
+t_cx	multiply_cx(t_cx comp1, t_cx comp2);
+t_cx	pow_cx(t_cx comp1);
+int		fabs_cx(t_cx comp);
 #endif
