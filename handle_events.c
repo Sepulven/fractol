@@ -6,21 +6,12 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:43:41 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/22 16:30:32 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:55:57 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	close_window(int keysym, t_scr *scr)
-{
-	if (keysym != XK_Escape)
-		return (0);
-	mlx_destroy_window(scr->mlx, scr->win);
-	scr->win = NULL;
-	exit(EXIT_SUCCESS);
-	return (0);
-}
 
 int	destroy_window(t_scr *scr)
 {
@@ -28,3 +19,19 @@ int	destroy_window(t_scr *scr)
 	exit(EXIT_SUCCESS);
 	return (0);
 }
+
+int	key_handling(int key, t_scr *scr)
+{
+	if (key == XK_Escape)
+		destroy_window(scr);
+	if (key == 'w')
+		write(1, "w", 1);
+	if (key == 's')
+		write(1, "s", 1);
+	if (key == 'd')
+		write(1, "d", 1);
+	if (key == 'a')
+		write(1, "a", 1);
+	
+}
+

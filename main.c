@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/22 16:16:28 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:50:25 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ int	main(void)
 	if (!scr.mlx)
 		write(1, "ok\n", 3);
 	mlx_hook(scr.win, 17, 1L << 17, &destroy_window, &scr);
-	//mlx_hook(scr.win, KeyPress, KeyPressMask, &close_window, &scr);
+	mlx_hook(scr.win, KeyPress, KeyPressMask, &key_handling, &scr);
 	mlx_loop(scr.mlx);
-	// mlx_destroy_image(scr.mlx, scr.img.fractol);
-	// mlx_destroy_display(scr.mlx);
-	// free(scr.mlx);
 	return (0);
 }

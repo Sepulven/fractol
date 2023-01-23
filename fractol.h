@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/22 16:30:45 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:56:31 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 # define W_WIDTH 1280
 # define W_HEIGHT 800
 # define MLX_ERROR 1
-# define MAX_ITERATIONS 500
+# define MAX_ITERATIONS 5000
 
 typedef struct s_cx
-{
+{	
 	double	real;
 	double	imag;
 }	t_cx;
@@ -53,7 +53,7 @@ typedef struct s_scr
 
 /*handle_events.c*/
 int		destroy_window(t_scr *scr);
-int		close_window(int keysym, t_scr *scr);
+int		key_handling(int key, t_scr *scr);
 
 /*render_utils.c*/
 void	img_put_pix(t_img *img, int x, int y, int color);

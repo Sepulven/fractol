@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:16:16 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/22 15:02:23 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:47:25 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 static int	filter_color(int value)
 {
-	if (value == 1)
-		return (0x1F33AA);
-	if (value == 3)
-		return (0xABB101);
-	if (value == 5)
-		return (0xFF15f3);
+	if (value == MAX_ITERATIONS)
+		return (0x000000);
 	if (value <= 10)
 		return (0xFF0011);
 	if (value <= 20)
 		return (0x00FFFF);
+	if (value <= 100)
+		return (0x1000FF);
+	if (value <= 200)
+		return (0x0000FF);
 	if (value <= 350)
 		return (0x0CB1F1);
 	if (value <= 450)
 		return (0xABA0F1);
-	if (value == MAX_ITERATIONS)
-		return (0x000000);
+	if (value <= 700)
+		return (0xABACF1);
 	return (0xFF15f3);
 }
 
