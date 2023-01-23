@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:16:16 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/23 12:47:25 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:08:20 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	render_img(t_img *img)
 		x = 0;
 		while (x <= W_WIDTH)
 		{
-			iterations = mandelbrot_formula(x - W_WIDTH / 2, W_HEIGHT / 2 - y);
+			iterations = mandelbrot_formula((t_cx){((x - W_WIDTH / 2) + 40) / 200, ((W_HEIGHT / 2 - y) + 40) / 200});
 			img_put_pix(img, x++, y, filter_color(iterations));
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/23 12:56:31 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:07:15 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define W_WIDTH 1280
 # define W_HEIGHT 800
 # define MLX_ERROR 1
-# define MAX_ITERATIONS 5000
+# define MAX_ITERATIONS 50
 
 typedef struct s_cx
 {	
@@ -60,7 +60,7 @@ void	img_put_pix(t_img *img, int x, int y, int color);
 int		render_img(t_img *img);
 
 /*fractol_utils.c*/
-int		mandelbrot_formula(double x, double y);
+int		mandelbrot_formula(t_cx z);
 
 /*cx_operations_utils.c*/
 t_cx	add_cx(t_cx comp1, t_cx comp2);
