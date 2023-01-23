@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:16:16 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/23 13:08:20 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/23 20:40:00 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void	img_put_pix(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-int	render_img(t_img *img)
+int	render_img(t_img *img, int (*f)(t_cx z), t_stats stats)
 {
-	double	x;
-	double	y;
-	int		iterations;
+	int		x;
+	int		y;
+	int		i;
 
 	if (!img->fractol)
 		return (1);
@@ -58,8 +58,8 @@ int	render_img(t_img *img)
 		x = 0;
 		while (x <= W_WIDTH)
 		{
-			iterations = mandelbrot_formula((t_cx){((x - W_WIDTH / 2) + 40) / 200, ((W_HEIGHT / 2 - y) + 40) / 200});
-			img_put_pix(img, x++, y, filter_color(iterations));
+			i = f(converter(x - W_WIDTH / 2, W_HEIGHT / 2 - y, stats));
+			img_put_pix(img, x++, y, filter_color(i));
 		}
 		y++;
 	}

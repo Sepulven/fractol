@@ -6,22 +6,24 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/23 12:50:25 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/23 20:16:51 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
  * ! We just need to free memory that was allocatted with malloc!!!
- * https://tronche.com/gui/x/xlib/events/ -> events doc
+ * ! https://tronche.com/gui/x/xlib/events/ -> events doc
+ * https://pt.wikipedia.org/wiki/Interpola%C3%A7%C3%A3o_linear or bitshifting
+ * Optimazy the with no outter function!
+ * https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set 
  */
 #include "fractol.h"
 
-int	render(t_scr *scr)
+int	render(t_scr *scr, t_stats stats)
 {
 	if (!scr->mlx)
 		return (MLX_ERROR);
-	render_img(&scr->img);
-	mlx_put_image_to_window(scr->mlx, scr->win, scr->img.fractol, 0, 0);
+	render_img(&scr->img, &mandelbrot, stats);
 	return (0);
 }
 
@@ -48,11 +50,10 @@ int	main(void)
 
 	if (!init_screen(&scr))
 		return (0);
-	render(&scr);
-	if (!scr.mlx)
-		write(1, "ok\n", 3);
+	key_handler(0, &scr);
 	mlx_hook(scr.win, 17, 1L << 17, &destroy_window, &scr);
-	mlx_hook(scr.win, KeyPress, KeyPressMask, &key_handling, &scr);
+	mlx_hook(scr.win, KeyPress, KeyPressMask, &key_handler, &scr);
+	mlx_mouse_hook(scr.win, &mouse_handler, &scr);
 	mlx_loop(scr.mlx);
 	return (0);
 }
