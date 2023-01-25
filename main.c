@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/24 23:41:15 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:33:24 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
  * https://pt.wikipedia.org/wiki/Interpola%C3%A7%C3%A3o_linear or bitshifting
  * Optimazy the with no outter function!
  * https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set 
- * TODO: Improve quality of fractol
+ * TODO: Understand the algorithm behind the colors
+ * TODO: Make image be already zoomed whenever it starts;
+ * TODO: Create julia;
  */
 #include "fractol.h"
 
