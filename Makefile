@@ -10,3 +10,4 @@ all: $(NAME)
 
 $(NAME):
 	$(CC) ${SRC} minilibx-linux/libmlx_Linux.a -lX11 -lXext  -lm -O3
+	./a.out

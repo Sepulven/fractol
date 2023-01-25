@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/23 20:16:51 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/24 23:41:15 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
  * https://pt.wikipedia.org/wiki/Interpola%C3%A7%C3%A3o_linear or bitshifting
  * Optimazy the with no outter function!
  * https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set 
+ * TODO: Improve quality of fractol
  */
 #include "fractol.h"
 
@@ -50,7 +51,7 @@ int	main(void)
 
 	if (!init_screen(&scr))
 		return (0);
-	key_handler(0, &scr);
+	event_handler(0, 0, 0, &scr);
 	mlx_hook(scr.win, 17, 1L << 17, &destroy_window, &scr);
 	mlx_hook(scr.win, KeyPress, KeyPressMask, &key_handler, &scr);
 	mlx_mouse_hook(scr.win, &mouse_handler, &scr);

@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/23 20:02:29 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/25 00:38:28 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,11 @@
 # include <X11/X.h>
 # include <math.h>
 
-// # define WINDOW_WIDTH 1366
-// # define WINDOW_HEIGHT 768
-
-# define W_WIDTH 1280
-# define W_HEIGHT 800
 # define MLX_ERROR 1
-# define MAX_ITERATIONS 50
-
+# define MAX_ITERATIONS 500
+# define zm 200
+# define W_HEIGHT 800
+# define W_WIDTH 1280
 typedef struct s_cx
 {	
 	double	real;
