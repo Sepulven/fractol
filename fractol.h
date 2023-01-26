@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/26 15:34:07 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:20:01 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct s_scr
 {
 	void	*mlx;
 	void	*win;
+	int		color;
+	char	f_type;
 	t_img	img;
 }	t_scr;
 
