@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/25 00:38:28 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:34:07 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <math.h>
 
 # define MLX_ERROR 1
-# define MAX_ITERATIONS 500
+# define MAX_ITERATIONS 30
 # define zm 200
 # define W_HEIGHT 800
 # define W_WIDTH 1280
@@ -37,6 +37,7 @@ typedef struct s_stats
 	double	offset_x;
 	double	offset_y;
 	double	zoom;
+	int		it;
 }	t_stats;
 
 typedef struct s_img
@@ -56,18 +57,18 @@ typedef struct s_scr
 }	t_scr;
 
 /*handle_events.c*/
-int		destroy_window(t_scr *scr);
-int		key_handler(int key, t_scr *scr);
-int		mouse_handler(int button, int x, int y, t_scr *scr);
-int		event_handler(int key, int x, int y, t_scr *scr);
+int	destroy_window(t_scr *scr);
+int	key_handler(int key, t_scr *scr);
+int	mouse_handler(int button, int x, int y, t_scr *scr);
+void	event_handler(int key, int x, int y, t_scr *scr);
 
 /*render_utils.c*/
 void	img_put_pix(t_img *img, int x, int y, int color);
-int		render_img(t_img *img, int (*f)(t_cx z), t_stats stats);
+int		render_img(t_img *img, int (*f)(t_cx, int), t_stats stats);
 
 /*fractol_utils.c*/
 t_cx	converter(double x, double y, t_stats stats);
-int		mandelbrot(t_cx z);
+int		mandelbrot(t_cx z, int iterations);
 
 /*cx_operations_utils.c*/
 t_cx	add_cx(t_cx comp1, t_cx comp2);

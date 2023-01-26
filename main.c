@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/25 13:33:24 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:32:31 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@
  * TODO: Create julia;
  */
 #include "fractol.h"
-
-int	render(t_scr *scr, t_stats stats)
-{
-	if (!scr->mlx)
-		return (MLX_ERROR);
-	render_img(&scr->img, &mandelbrot, stats);
-	return (0);
-}
 
 int	init_screen(t_scr *scr)
 {

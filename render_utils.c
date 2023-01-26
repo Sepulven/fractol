@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:16:16 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/25 01:31:25 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:48:07 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,60 @@
 // 	return (color_arr[color_i]);
 // }
 
-int	lerp(unsigned int a, unsigned int b, double t)
+unsigned char	lerp(unsigned int a, unsigned int b, double t)
 {
 	return ((int)((1 - t) * (double)a + t * (double)b));
 }
 
-unsigned int	get_color(unsigned int c1, unsigned int c2, int i)
+unsigned int	get_color(unsigned int c1, unsigned int c2, int i, int max)
 {
-	unsigned int	c;
-
-	if (i == MAX_ITERATIONS)
+	int	c;
+	unsigned char *p;
+	
+	if (i == max)
 		return (0x000000);
+	p = (unsigned char *)&c;
 
-	c = ((lerp(c1 >> 16 & 0xff, c2 >> 16 & 0xff, (float)i / (float)MAX_ITERATIONS)) << 16)
-		| ((lerp(c1 >> 8 & 0xff, c2 >> 8 & 0xff, (float)i / (float)MAX_ITERATIONS)) << 8)
-		| (lerp(c1 & 0xff, c2 & 0xff, (float)i / (float)MAX_ITERATIONS));
+	/*Psicodelico rosa*/
+	// p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
+	// p[1] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max);
+	// p[2] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
+	
+	/* Psicodelico red */
+	// p[0] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
+	// p[1] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
+	// p[2] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max);
+
+	/* Psicodelio gradient */
+	// p[0] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
+	// p[1] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max);
+	// p[2] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
+	
+	/* Verde gradient smooth*/
+	// p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
+	// p[1] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
+	// p[2] = lerp(c1 >> 24 & ~0, c2 >> 24 & ~0, (float)i / (float)max);
+	/* Double gradient */
+
+	// p[1] = lerp(c1 << 24 & ~0, c2 << 24 & ~0, (float)i / (float)max);
+	// p[2] = lerp(c1 << 16 & ~0, c2 << 16 & ~0, (float)i / (float)max);
+	// p[3] = lerp(c1 << 8& ~0, c2 << 8 & ~0, (float)i / (float)max);
+
+	p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
+	p[1] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max) >> 8;
+	p[2] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max) >> 16;
+
+	/*Psicodelico*/
+	// c = ((lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max)) << 16)
+	// 	| ((lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max)) << 8)
+	// 	| (lerp(c1 & ~0, c2 & ~0, (float)i / (float)max));
 	return (c);
 }
 
 
-
-
-
-
 /* 		index = line_len * y + x * (bpp / 8)
-*	This is the formula that gives the 
-*/
+ *	This is the formula that gives the 
+ */
 void	img_put_pix(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
@@ -80,7 +108,7 @@ void	img_put_pix(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-int	render_img(t_img *img, int (*f)(t_cx z), t_stats stats)
+int	render_img(t_img *img, int (*f)(t_cx z, int i), t_stats stats)
 {
 	int		x;
 	int		y;
@@ -95,8 +123,8 @@ int	render_img(t_img *img, int (*f)(t_cx z), t_stats stats)
 		x = 0;
 		while (x <= W_WIDTH)
 		{
-			i = f(converter(x - W_WIDTH / 2, W_HEIGHT / 2 - y, stats));
-			color =  get_color(0xF01AA590, 0x0000ff8, i);
+			i = f(converter(x - W_WIDTH / 2, W_HEIGHT / 2 - y, stats), stats.it);
+			color =  get_color(0xFF0066, 0x002211, i, stats.it + MAX_ITERATIONS);
 			img_put_pix(img, x++, y, color);
 		}
 		y++;
