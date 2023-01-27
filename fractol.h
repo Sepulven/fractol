@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/27 17:37:14 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:10:50 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,27 @@ typedef struct s_scr
 {
 	void	*mlx;
 	void	*win;
-	int		(*f_type)(int, int);
+	int		(*f_type)(t_cx, int);
 	int		point;
 	t_img	img;
 }	t_scr;
 
 /*handle_events.c*/
-int	destroy_window(t_scr *scr);
-int	key_handler(int key, t_scr *scr);
-int	mouse_handler(int button, int x, int y, t_scr *scr);
+int		destroy_window(t_scr *scr);
+int		key_handler(int key, t_scr *scr);
+int		mouse_handler(int button, int x, int y, t_scr *scr);
 void	event_handler(int key, int x, int y, t_scr *scr);
 
 /*render_utils.c*/
 void	img_put_pix(t_img *img, int x, int y, int color);
 int		render_img(t_img *img, int (*f)(t_cx, int), t_stats stats);
+t_cx	converter(double x, double y, t_stats stats);
 
 /*fractol_utils.c*/
-t_cx	converter(double x, double y, t_stats stats);
 int		mandelbrot(t_cx z, int iterations);
+int		burning_ship(t_cx z, int it);
+int		alien(t_cx z, int it);
+int		celtic(t_cx z, int it);
 
 /*cx_operations_utils.c*/
 t_cx	add_cx(t_cx comp1, t_cx comp2);

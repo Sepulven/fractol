@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/27 17:32:50 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:17:22 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,21 @@ int	init_screen(t_scr *scr)
 
 int	init_args(t_scr *scr, int argc, char *argv[])
 {
-	if (argc == 2 || argc == 3)
+	char c;
+
+	if ((argc == 2 || argc == 3) && strchr("mjacb", argv[1][0]))
 	{
-		if (strchr("mjacb", argv[1][0]))
-			scr->f_type = argv[1][0];
-		else 
-			return (write(1, MSG, 133));
-		if (argc == 3)
-		{
-			if (strchr("pdgv", argv[1][1]))
-				scr->f_type = argv[2][1];
-		}
+		c = argv[1][0];
+		if (c == 'm')
+			scr->f_type = &mandelbrot;
+		if (c == 'j')
+			scr->f_type = &mandelbrot;
+		if (c == 'b')
+			scr->f_type = &burning_ship;
+		if (c == 'a')
+			scr->f_type = &alien;
+		if (c == 'c')
+			scr->f_type = &celtic;
 		return (1);
 	}
 	return (write(1, MSG, 133));
@@ -61,9 +65,9 @@ int	init_args(t_scr *scr, int argc, char *argv[])
 int	main(int argc, char *argv[])
 {
 	t_scr	scr;
-	if (!init_screen(&scr))
-		return (0);
 	if (init_args(&scr, argc, argv) != 1)
+		return (0);
+	if (!init_screen(&scr))
 		return (0);
 	event_handler(0, 0, 0, &scr);
 	mlx_hook(scr.win, 17, 1L << 17, &destroy_window, &scr);
