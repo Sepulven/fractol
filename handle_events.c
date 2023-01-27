@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:43:41 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/26 14:58:25 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:54:43 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,3 @@ void	event_handler(int key, int x, int y, t_scr *scr)
 	render_img(&scr->img, mandelbrot, stats);
 	mlx_put_image_to_window(scr->mlx, scr->win, scr->img.fractol, 0, 0);
 }
-
-/*
-	unsigned char * p;
-	
-	p = (unsigned char *)&i;
-	p[0] = (unsigned char)0;
-	p[1] = (unsigned char)255;
-	p[2] = (unsigned char)0;
-	p[3] = (unsigned char)100;
-*/

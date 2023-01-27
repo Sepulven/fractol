@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/26 17:20:01 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:37:14 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define zm 200
 # define W_HEIGHT 800
 # define W_WIDTH 1280
+# define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n a-> Alien \n j-> Julia (needs to specify the second parameter)\n b-> Burning ship\n"
 typedef struct s_cx
 {	
 	double	real;
@@ -53,8 +54,8 @@ typedef struct s_scr
 {
 	void	*mlx;
 	void	*win;
-	int		color;
-	char	f_type;
+	int		(*f_type)(int, int);
+	int		point;
 	t_img	img;
 }	t_scr;
 

@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:16:16 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/26 16:48:07 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:02:01 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,34 +65,21 @@ unsigned int	get_color(unsigned int c1, unsigned int c2, int i, int max)
 	// p[1] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max);
 	// p[2] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
 	
-	/* Psicodelico red */
-	// p[0] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
-	// p[1] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
-	// p[2] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max);
-
-	/* Psicodelio gradient */
-	// p[0] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
-	// p[1] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max);
-	// p[2] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
-	
 	/* Verde gradient smooth*/
-	// p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
-	// p[1] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
-	// p[2] = lerp(c1 >> 24 & ~0, c2 >> 24 & ~0, (float)i / (float)max);
-	/* Double gradient */
-
+	p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
+	p[1] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
+	p[2] = lerp(c1 >> 24 & ~0, c2 >> 24 & ~0, (float)i / (float)max);
+	
+	/*Purple*/
 	// p[1] = lerp(c1 << 24 & ~0, c2 << 24 & ~0, (float)i / (float)max);
 	// p[2] = lerp(c1 << 16 & ~0, c2 << 16 & ~0, (float)i / (float)max);
 	// p[3] = lerp(c1 << 8& ~0, c2 << 8 & ~0, (float)i / (float)max);
+	
+	/* Double gradient */
+	// p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
+	// p[1] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max) >> 8;
+	// p[2] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max) >> 16;
 
-	p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
-	p[1] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max) >> 8;
-	p[2] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max) >> 16;
-
-	/*Psicodelico*/
-	// c = ((lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max)) << 16)
-	// 	| ((lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max)) << 8)
-	// 	| (lerp(c1 & ~0, c2 & ~0, (float)i / (float)max));
 	return (c);
 }
 
