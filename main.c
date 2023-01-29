@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/27 18:17:22 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 00:13:26 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
  * https://pt.wikipedia.org/wiki/Interpola%C3%A7%C3%A3o_linear or bitshifting
  * Optimazy the with no outter function!
  * https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set 
- * TODO: Create julia;
- * z = (abs(x) + abs(y)i)^2 + c ou z = (x + yi)^2 + c
+ * Need to create atof;
+ * Need to take alnumstring;
+ * copy the same files with bonus written onto makefile;
+ * 
  */
 #include "fractol.h"
 
@@ -39,27 +41,35 @@ int	init_screen(t_scr *scr)
 }
 
 #include <string.h>
+#include <ctype.h>
+#include <unistd.h>
 
 int	init_args(t_scr *scr, int argc, char *argv[])
 {
 	char c;
 
-	if ((argc == 2 || argc == 3) && strchr("mjacb", argv[1][0]))
+	if (!((argc == 2 || argc == 4) && strchr("mjacb", argv[1][0])))
+		return (write(1, MSG, M_SIZE));
+	scr->point.real = 0;
+	scr->point.imag = 0;
+	c = argv[1][0];
+	if (c == 'm')
+		scr->f = &mandelbrot;
+	if (c == 'b')
+		scr->f = &burning_ship;
+	if (c == 'a')
+		scr->f = &alien;
+	if (c == 'c')
+		scr->f = &celtic;
+	if (c == 'j')
 	{
-		c = argv[1][0];
-		if (c == 'm')
-			scr->f_type = &mandelbrot;
-		if (c == 'j')
-			scr->f_type = &mandelbrot;
-		if (c == 'b')
-			scr->f_type = &burning_ship;
-		if (c == 'a')
-			scr->f_type = &alien;
-		if (c == 'c')
-			scr->f_type = &celtic;
-		return (1);
-	}
-	return (write(1, MSG, 133));
+		if (argc == 4)
+			return (write(1, MSG, M_SIZE));
+		scr->f = &julia;
+		scr->point.real = atof(argv[2]);
+		scr->point.imag = atof(argv[3]);
+	} 
+	return (1);
 }
 
 int	main(int argc, char *argv[])

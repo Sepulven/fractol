@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:43:41 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/27 18:00:35 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/28 23:20:50 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void	event_handler(int key, int x, int y, t_scr *scr)
 		stats.offset_x -= W_WIDTH / (20 * stats.zoom);
 	if (key == XK_Left)
 		stats.offset_x += W_WIDTH / (20 * stats.zoom);
-	render_img(&scr->img, scr->f_type, stats);
+	render_img(scr, stats);
 	mlx_put_image_to_window(scr->mlx, scr->win, scr->img.fractol, 0, 0);
 }

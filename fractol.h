@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/27 18:10:50 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/28 23:42:14 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 # define zm 200
 # define W_HEIGHT 800
 # define W_WIDTH 1280
-# define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n a-> Alien \n j-> Julia (needs to specify the second parameter)\n b-> Burning ship\n"
+# define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n a-> Alien \n j-> Julia (needs to specify more two parameters)\n b-> Burning ship\n"
+# define M_SIZE 132
 typedef struct s_cx
 {	
 	double	real;
@@ -54,8 +55,8 @@ typedef struct s_scr
 {
 	void	*mlx;
 	void	*win;
-	int		(*f_type)(t_cx, int);
-	int		point;
+	int		(*f)(t_cx, t_cx, int);
+	t_cx	point;
 	t_img	img;
 }	t_scr;
 
@@ -67,14 +68,15 @@ void	event_handler(int key, int x, int y, t_scr *scr);
 
 /*render_utils.c*/
 void	img_put_pix(t_img *img, int x, int y, int color);
-int		render_img(t_img *img, int (*f)(t_cx, int), t_stats stats);
+int		render_img(t_scr *src, t_stats stats);
 t_cx	converter(double x, double y, t_stats stats);
 
 /*fractol_utils.c*/
-int		mandelbrot(t_cx z, int iterations);
-int		burning_ship(t_cx z, int it);
-int		alien(t_cx z, int it);
-int		celtic(t_cx z, int it);
+int		mandelbrot(t_cx z, t_cx c, int iterations);
+int		burning_ship(t_cx z, t_cx c, int it);
+int		alien(t_cx z, t_cx c, int it);
+int		celtic(t_cx z, t_cx c, int it);
+int		julia(t_cx z, t_cx c, int it);
 
 /*cx_operations_utils.c*/
 t_cx	add_cx(t_cx comp1, t_cx comp2);
