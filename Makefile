@@ -4,23 +4,24 @@ CC			= gcc
 CFLAGS 		= -Wall -Werror -Wextra
 
 SRC			= main.c fractols.c render_utils.c handle_events.c
-OBJ			= ${SRC:.o:.c}
+OBJ			= $(SRC:.c=.o)
 RM 			= rm -rf
 LIBFT		= libft/libft.a
 INCLUDES	= minilibx-linux/libmlx_Linux.a -lX11 -lXext -lm -O3
 
 all: $(NAME)
-
-$(NAME):
+.c:.o
+	$(CC) ${INCLUDES} ${LIBFT} $@ -o $<
+$(NAME): ${OBJ}
 		@make -C libft
-		$(CC) ${SRC} ${INCLUDES} ${LIBFT} -o ${NAME}
+		$(CC) ${INCLUDES} ${LIBFT} ${OBJ} -o ${NAME}
 
 clean:
 		@make clean -C libft
-		rm -rf ${NAME}
-
+		rm -rf ${OBJ}
 fclean:
 		@make fclean -C libft
+		rm -rf ${NAME}
 re:
 		
 val:

@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:43:41 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/29 17:04:20 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:11:11 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ int	destroy_window(t_scr *scr)
 
 int	mouse_handler(int button, int x, int y, t_scr *scr)
 {
-	int	i;
-
 	if (button == 5 || button == 4)
 		event_handler(button, x - W_WIDTH / 2, W_HEIGHT / 2 - y, scr);
+	return (1);
 }
 
 int	key_handler(int key, t_scr *scr)
@@ -56,6 +55,7 @@ int	key_handler(int key, t_scr *scr)
 			scr->stats.offset_x += W_WIDTH / (20 * scr->stats.zoom);
 		event_handler(0, 0, 0, scr);
 	}
+	return (1);
 }
 
 void	event_handler(int key, int x, int y, t_scr *scr)

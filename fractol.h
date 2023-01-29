@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/29 16:12:47 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:07:50 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FRACTOL_H 1
 
 # include "minilibx-linux/mlx.h"
+# include "libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
