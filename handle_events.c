@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:43:41 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/29 15:48:26 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:04:20 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,37 @@ int	key_handler(int key, t_scr *scr)
 	if (key == XK_Escape)
 		return (destroy_window(scr));
 	if (key == XK_Up || key == XK_Down || key == XK_Right || key == XK_Left
-		|| key  == XK_KP_Subtract || key == XK_KP_Add)
-		event_handler(key, 0, 0, scr);
+		|| key == XK_KP_Subtract || key == XK_KP_Add
+		|| key == '1' || key == '2' || key == '3')
+	{
+		if (strchr("123", key))
+			scr->stats.color = key;
+		if (key == XK_KP_Add)
+			scr->stats.it += 10;
+		if (key == XK_KP_Subtract)
+			scr->stats.it -= 10;
+		if (key == XK_Up)
+			scr->stats.offset_y -= W_HEIGHT / (20 * scr->stats.zoom);
+		if (key == XK_Down)
+			scr->stats.offset_y += W_HEIGHT / (20 * scr->stats.zoom);
+		if (key == XK_Right)
+			scr->stats.offset_x -= W_WIDTH / (20 * scr->stats.zoom);
+		if (key == XK_Left)
+			scr->stats.offset_x += W_WIDTH / (20 * scr->stats.zoom);
+		event_handler(0, 0, 0, scr);
+	}
 }
 
 void	event_handler(int key, int x, int y, t_scr *scr)
 {
-	static t_stats	stats;
-
-	if (stats.zoom == 0)
-		stats.zoom = 2;
 	if (key == 4)
 	{
-		stats.zoom *= 2;
-		stats.offset_x += x / stats.zoom;
-		stats.offset_y += y / stats.zoom;
+		scr->stats.zoom *= 2;
+		scr->stats.offset_x += x / scr->stats.zoom;
+		scr->stats.offset_y += y / scr->stats.zoom;
 	}
 	if (key == 5)
-		stats.zoom /= 2;
-	if (key == XK_KP_Add)
-		stats.it += 10;
-	if (key == XK_KP_Subtract)
-		stats.it -= 10;
-	if (key == XK_Up)
-		stats.offset_y -= W_HEIGHT / (20 * stats.zoom);
-	if (key == XK_Down)
-		stats.offset_y += W_HEIGHT / (20 * stats.zoom);
-	if (key == XK_Right)
-		stats.offset_x -= W_WIDTH / (20 * stats.zoom);
-	if (key == XK_Left)
-		stats.offset_x += W_WIDTH / (20 * stats.zoom);
-	render_img(scr, stats);
+		scr->stats.zoom /= 2;
+	render_img(scr);
 	mlx_put_image_to_window(scr->mlx, scr->win, scr->img.fractol, 0, 0);
 }

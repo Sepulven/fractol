@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/29 15:51:07 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:06:07 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ int	main(int argc, char *argv[])
 		return (0);
 	if (!init_screen(&scr))
 		return (0);
+	scr.stats.color = '1';
+	scr.stats.zoom = 2;
+	scr.stats.it = 0;
 	event_handler(0, 0, 0, &scr);
 	mlx_hook(scr.win, 17, 1L << 17, &destroy_window, &scr);
 	mlx_hook(scr.win, KeyPress, KeyPressMask, &key_handler, &scr);

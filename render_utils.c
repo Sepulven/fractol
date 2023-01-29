@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:16:16 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/29 15:54:03 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:07:40 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,39 @@ unsigned char	lerp(unsigned int a, unsigned int b, double t)
 	return ((int)((1 - t) * (double)a + t * (double)b));
 }
 
-unsigned int	get_color(unsigned int c1, unsigned int c2, int i, int max)
+unsigned int	get_color(unsigned int c1, unsigned int c2,
+			int i, t_stats *stats)
 {
-	int	c;
-	unsigned char *p;
-	
-	if (i == max)
+	int				c;
+	unsigned char	*p;
+
+	if (i == (stats->it + MAX_IT))
 		return (0x000000);
 	p = (unsigned char *)&c;
-	p[0] = lerp(c1, c2, (float)i / (float)max);
-	/*Psicodelico rosa*/
-	// p[1] = lerp(c1 >> 8, c2 >> 8, (float)i / (float)max);
-	// p[2] = lerp(c1 >> 16, c2 >> 16, (float)i / (float)max);
-	
-	/* Verde gradient smooth*/
-	// p[1] = lerp(c1 >> 16, c2 >> 16, (float)i / (float)max);
-	// p[2] = lerp(c1 >> 24, c2 >> 24, (float)i / (float)max);
-	
-	/*Purple*/
-	p[1] = lerp(c1 << 24, c2 << 24, (float)i / (float)max);
-	p[2] = lerp(c1 << 16, c2 << 16, (float)i / (float)max);
-	p[3] = lerp(c1 << 8, c2 << 8, (float)i / (float)max);
-	/* Double gradient */
-	// p[1] = lerp(c1 >> 8, c2 >> 8, (float)i / (float)max) >> 8;
-	// p[2] = lerp(c1 >> 16, c2 >> 16, (float)i / (float)max) >> 16;
+	p[0] = lerp(c1, c2, (float)i / (stats->it + MAX_IT));
+	if (stats->color == '1')
+	{
+	p[1] = lerp(c1 >> 8, c2 >> 8, (float)i / (stats->it + MAX_IT));
+	p[2] = lerp(c1 >> 16, c2 >> 16, (float)i / (stats->it + MAX_IT));
+	}
+	if (stats->color == '2')
+	{
+	p[1] = lerp(c1 >> 16, c2 >> 16, (float)i / (stats->it + MAX_IT));
+	p[2] = lerp(c1 >> 24, c2 >> 24, (float)i / (stats->it + MAX_IT));
+	}
+	if (stats->color == '3')
+	{
+	p[1] = lerp(c1 >> 8, c2 >> 8, (float)i / (stats->it + MAX_IT)) >> 8;
+	p[2] = lerp(c1 >> 16, c2 >> 16, (float)i / (stats->it + MAX_IT)) >> 16;
+	}
 	return (c);
 }
 
 t_cx	converter(double x, double y, t_stats stats)
 {
 	return ((t_cx){
-		((x / stats.zoom) + stats.offset_x) / ZM,
-		((y / stats.zoom) + stats.offset_y) / ZM
+		(((x - W_WIDTH / 2) / stats.zoom) + stats.offset_x) / ZM,
+		(((W_HEIGHT / 2 - y) / stats.zoom) + stats.offset_y) / ZM
 	});
 }
 
@@ -63,7 +64,7 @@ void	img_put_pix(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-int	render_img(t_scr *scr, t_stats stats)
+int	render_img(t_scr *scr)
 {
 	int		x;
 	int		y;
@@ -78,8 +79,8 @@ int	render_img(t_scr *scr, t_stats stats)
 		x = 0;
 		while (x <= W_WIDTH)
 		{
-			i = scr->f(converter(x - W_WIDTH / 2, W_HEIGHT / 2 - y, stats), scr->point , stats.it);
-			color =  get_color(0xFF0066, 0x002211, i, stats.it + MAX_ITERATIONS);
+			i = scr->f(converter(x, y, scr->stats), scr->point, scr->stats.it);
+			color = get_color(C1, C2, i, &scr->stats);
 			img_put_pix(&scr->img, x++, y, color);
 		}
 		y++;
