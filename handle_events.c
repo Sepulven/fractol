@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:43:41 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/28 23:20:50 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:48:26 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	destroy_window(t_scr *scr)
 
 int	mouse_handler(int button, int x, int y, t_scr *scr)
 {
-	int i;
+	int	i;
 
 	if (button == 5 || button == 4)
 		event_handler(button, x - W_WIDTH / 2, W_HEIGHT / 2 - y, scr);
@@ -36,8 +36,8 @@ int	key_handler(int key, t_scr *scr)
 		return (0);
 	if (key == XK_Escape)
 		return (destroy_window(scr));
-	if (key == XK_Up || key == XK_Down || key ==  XK_Right || key == XK_Left 
-		|| key  == XK_KP_Subtract || key == XK_KP_Add )
+	if (key == XK_Up || key == XK_Down || key == XK_Right || key == XK_Left
+		|| key  == XK_KP_Subtract || key == XK_KP_Add)
 		event_handler(key, 0, 0, scr);
 }
 
@@ -51,7 +51,7 @@ void	event_handler(int key, int x, int y, t_scr *scr)
 	{
 		stats.zoom *= 2;
 		stats.offset_x += x / stats.zoom;
-		stats.offset_y += y / stats.zoom; 
+		stats.offset_y += y / stats.zoom;
 	}
 	if (key == 5)
 		stats.zoom /= 2;

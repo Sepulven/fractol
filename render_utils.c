@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:16:16 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/29 00:16:44 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:54:03 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,30 @@ unsigned int	get_color(unsigned int c1, unsigned int c2, int i, int max)
 	if (i == max)
 		return (0x000000);
 	p = (unsigned char *)&c;
-
-	p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
+	p[0] = lerp(c1, c2, (float)i / (float)max);
 	/*Psicodelico rosa*/
-	// p[1] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max);
-	// p[2] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
+	// p[1] = lerp(c1 >> 8, c2 >> 8, (float)i / (float)max);
+	// p[2] = lerp(c1 >> 16, c2 >> 16, (float)i / (float)max);
 	
 	/* Verde gradient smooth*/
-	//p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
-	// p[1] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max);
-	// p[2] = lerp(c1 >> 24 & ~0, c2 >> 24 & ~0, (float)i / (float)max);
+	// p[1] = lerp(c1 >> 16, c2 >> 16, (float)i / (float)max);
+	// p[2] = lerp(c1 >> 24, c2 >> 24, (float)i / (float)max);
 	
 	/*Purple*/
-	p[1] = lerp(c1 << 24 & ~0, c2 << 24 & ~0, (float)i / (float)max);
-	p[2] = lerp(c1 << 16 & ~0, c2 << 16 & ~0, (float)i / (float)max);
-	p[3] = lerp(c1 << 8& ~0, c2 << 8 & ~0, (float)i / (float)max);
-	
+	p[1] = lerp(c1 << 24, c2 << 24, (float)i / (float)max);
+	p[2] = lerp(c1 << 16, c2 << 16, (float)i / (float)max);
+	p[3] = lerp(c1 << 8, c2 << 8, (float)i / (float)max);
 	/* Double gradient */
-	// p[0] = lerp(c1 & ~0, c2 & ~0, (float)i / (float)max);
-	// p[1] = lerp(c1 >> 8 & ~0, c2 >> 8 & ~0, (float)i / (float)max) >> 8;
-	// p[2] = lerp(c1 >> 16 & ~0, c2 >> 16 & ~0, (float)i / (float)max) >> 16;
-
+	// p[1] = lerp(c1 >> 8, c2 >> 8, (float)i / (float)max) >> 8;
+	// p[2] = lerp(c1 >> 16, c2 >> 16, (float)i / (float)max) >> 16;
 	return (c);
 }
 
 t_cx	converter(double x, double y, t_stats stats)
 {
 	return ((t_cx){
-		((x / stats.zoom) + stats.offset_x) / zm,
-		((y / stats.zoom) + stats.offset_y) / zm
+		((x / stats.zoom) + stats.offset_x) / ZM,
+		((y / stats.zoom) + stats.offset_y) / ZM
 	});
 }
 

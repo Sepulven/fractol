@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/28 23:42:14 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:55:00 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <math.h>
+# include <string.h>
 
 # define MLX_ERROR 1
 # define MAX_ITERATIONS 30
-# define zm 200
+# define ZM 200
 # define W_HEIGHT 800
 # define W_WIDTH 1280
-# define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n a-> Alien \n j-> Julia (needs to specify more two parameters)\n b-> Burning ship\n"
+# define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n a-> Alien \n \
+j-> Julia (needs to specify more two parameters)\n b-> Burning ship\n"
 # define M_SIZE 132
+
 typedef struct s_cx
 {	
 	double	real;

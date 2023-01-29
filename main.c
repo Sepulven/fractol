@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/29 00:13:26 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:51:07 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,9 @@ int	init_screen(t_scr *scr)
 	return (1);
 }
 
-#include <string.h>
-#include <ctype.h>
-#include <unistd.h>
-
 int	init_args(t_scr *scr, int argc, char *argv[])
 {
-	char c;
+	char	c;
 
 	if (!((argc == 2 || argc == 4) && strchr("mjacb", argv[1][0])))
 		return (write(1, MSG, M_SIZE));
@@ -63,18 +59,19 @@ int	init_args(t_scr *scr, int argc, char *argv[])
 		scr->f = &celtic;
 	if (c == 'j')
 	{
-		if (argc == 4)
+		if (argc != 4)
 			return (write(1, MSG, M_SIZE));
 		scr->f = &julia;
 		scr->point.real = atof(argv[2]);
 		scr->point.imag = atof(argv[3]);
-	} 
+	}
 	return (1);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_scr	scr;
+
 	if (init_args(&scr, argc, argv) != 1)
 		return (0);
 	if (!init_screen(&scr))
