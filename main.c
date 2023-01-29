@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/29 17:06:07 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:43:50 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,24 @@ int	init_screen(t_scr *scr)
 	scr->img.addr = mlx_get_data_addr(scr->img.fractol,
 			&scr->img.bpp, &scr->img.line_len, &scr->img.endian);
 	return (1);
+}
+
+float	ft_atof(const char	*s)
+{
+	float	n;
+	char	*decimal;
+	int		signal;
+
+	signal = 1;
+	if (s[0] == '-')
+		signal = -1;
+	n = atoi(s);
+	if (n < 0)
+		n *= -1;
+	decimal = strchr(s, '.');
+	if (decimal && decimal == strrchr(s, '.'))
+		n += (atoi(&decimal[1]) / pow(10, strlen(&decimal[1])));
+	return (n * signal);
 }
 
 int	init_args(t_scr *scr, int argc, char *argv[])
