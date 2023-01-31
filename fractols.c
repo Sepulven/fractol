@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:47:52 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/31 12:00:19 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:40:28 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	burning_ship(t_cx z, t_cx j, int it)
 	c = z;
 	while ((i < MAX_IT + it) && (pow(z.imag, 2) + pow(z.real, 2) < 4))
 	{
-		z = (t_cx){(z.real * z.real) - (z.imag * z.imag) + c.real,
+		z = (t_cx){(z.real * z.real) - (z.imag *z.imag) + c.real,
 			fabs(z.real * z.imag) * -2 + c.imag};
 		i++;
 	}

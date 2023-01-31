@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/29 17:43:50 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:43:27 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,37 @@ float	ft_atof(const char	*s)
 	signal = 1;
 	if (s[0] == '-')
 		signal = -1;
-	n = atoi(s);
+	n = ft_atoi(s);
 	if (n < 0)
 		n *= -1;
-	decimal = strchr(s, '.');
-	if (decimal && decimal == strrchr(s, '.'))
-		n += (atoi(&decimal[1]) / pow(10, strlen(&decimal[1])));
+	decimal = ft_strchr(s, '.');
+	if (decimal && decimal == ft_strrchr(s, '.'))
+		n += (ft_atoi(&decimal[1]) / pow(10, ft_strlen(&decimal[1])));
 	return (n * signal);
+}
+
+int	check_julia(char *n1)
+{
+	int	signal;
+	int	dot;
+	int	i;
+
+	i = 0;
+	signal = 0;
+	dot = 0;
+	while (n1[i] != '\0')
+	{
+		if (n1[i] == '-')
+			signal++;
+		else if (n1[i] == '.')
+			dot++;
+		else if (!ft_isdigit(n1[i]))
+			return (0);
+		i++;
+	}
+	if (signal > 1 || dot > 1)
+		return (0);
+	return (1);
 }
 
 int	init_args(t_scr *scr, int argc, char *argv[])
@@ -77,7 +101,7 @@ int	init_args(t_scr *scr, int argc, char *argv[])
 		scr->f = &celtic;
 	if (c == 'j')
 	{
-		if (argc != 4)
+		if (argc != 4 || !check_julia(argv[2]) || !check_julia(argv[3]))
 			return (write(1, MSG, M_SIZE));
 		scr->f = &julia;
 		scr->point.real = atof(argv[2]);
