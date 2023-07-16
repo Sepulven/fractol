@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/31 12:43:27 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:29:20 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	init_args(t_scr *scr, int argc, char *argv[])
 {
 	char	c;
 
-	if (!((argc == 2 || argc == 4) && strchr("mjacb", argv[1][0])))
+	if (!((argc == 2 || argc == 4) && ft_strchr("mjacb", argv[1][0])))
 		return (write(1, MSG, M_SIZE));
 	scr->point.real = 0;
 	scr->point.imag = 0;

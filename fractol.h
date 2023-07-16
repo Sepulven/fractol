@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/01/31 12:37:09 by asepulve         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:32:07 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 # define C2 0x002211
 # define W_HEIGHT 800
 # define W_WIDTH 1280
-# define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n a-> Alien \n \
+# define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n c-> Celtic\n a-> Alien \n \
 j-> Julia \n\t(needs to specify two float parameters)\n b-> Burning ship \n"
-# define M_SIZE 136
+# define M_SIZE 148
 
 typedef struct s_cx
 {	
