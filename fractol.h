@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2023/07/16 22:32:07 by asepulve         ###   ########.fr       */
+/*   Updated: 2024/07/06 02:00:52 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define MLX_ERROR 1
 # define MAX_IT 30
 # define ZM 200
-# define C1 0xFF0066
-# define C2 0x002211
+# define C1 0xFFFFFF
+# define C2 0x000000
 # define W_HEIGHT 800
 # define W_WIDTH 1280
 # define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n c-> Celtic\n a-> Alien \n \
