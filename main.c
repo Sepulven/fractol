@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2023/07/16 22:29:20 by asepulve         ###   ########.fr       */
+/*   Updated: 2024/07/07 01:36:48 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,21 @@ int	main(int argc, char *argv[])
 	scr.stats.color = '1';
 	scr.stats.zoom = 2;
 	scr.stats.it = 0;
+	
+	// * Sets the range the fractol is visible for the window of the complex plane;
+
+	t_stats	*stats = &scr.stats;
+	
+	stats->min_x = -3.0;
+	stats->max_x = 3.0;
+	stats->min_y = stats->min_x * (2.0/3.0);
+	stats->max_y = stats->max_x * (2.0/3.0);// * Ratio
+
+	printf("%f %f %f %f \n", stats->min_x, stats->max_x, stats->min_y, stats->max_y);
+	printf("%f \n", fabs(stats->max_x - stats->min_x) * fabs(stats->max_y - stats->min_y));
+	stats->unit = (fabs(stats->max_x - stats->min_x) * fabs(stats->max_y - stats->min_y)) / (W_HEIGHT * W_WIDTH);
+	printf("%f\n", stats->unit);
+
 	event_handler(0, 0, 0, &scr);
 	mlx_hook(scr.win, 17, 1L << 17, &destroy_window, &scr);
 	mlx_hook(scr.win, KeyPress, KeyPressMask, &key_handler, &scr);

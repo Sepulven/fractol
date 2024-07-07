@@ -11,7 +11,7 @@ INCLUDES	= libft/libft.a minilibx-linux/libmlx_Linux.a -lm -lX11 -lXext
 all: $(NAME)
 
 $(NAME):
-		@gcc ${SRC} -O3 -c
+		@gcc ${CFLAGS} ${SRC} -O3 -c
 		@make -C libft
 		@gcc ${OBJ} ${INCLUDES} -o ${NAME}
 
@@ -22,6 +22,7 @@ clean:
 fclean: clean
 		@make fclean -C libft
 		@rm -rf ${NAME}
+
 re: fclean ${NAME}
 
 val:

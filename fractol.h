@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2024/07/06 02:00:52 by asepulve         ###   ########.fr       */
+/*   Updated: 2024/07/07 01:04:54 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define ZM 200
 # define C1 0xFFFFFF
 # define C2 0x000000
-# define W_HEIGHT 800
-# define W_WIDTH 1280
+# define W_HEIGHT 1080
+# define W_WIDTH 1920 //* Ration is 16:10
 # define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n c-> Celtic\n a-> Alien \n \
 j-> Julia \n\t(needs to specify two float parameters)\n b-> Burning ship \n"
 # define M_SIZE 148
@@ -40,11 +40,28 @@ typedef struct s_cx
 	double	imag;
 }	t_cx;
 
+/*
+ * 1 - center the windown;
+ * 2 - on scroll;
+ 	* center on the the point that the cursor is on;
+	* divides the window's status by the scale;
+*/
+
 typedef struct s_stats
 {
+	// * Window status;
+	double	min_x;
+	double	max_x;
+	double	min_y;
+	double	max_y;
+
+	double	unit;
+
+	// * scale;
+	double	zoom;
+
 	double	offset_x;
 	double	offset_y;
-	double	zoom;
 	float	it;
 	char	color;
 }	t_stats;
