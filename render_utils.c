@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:16:16 by asepulve          #+#    #+#             */
-/*   Updated: 2024/07/07 02:05:32 by asepulve         ###   ########.fr       */
+/*   Updated: 2024/07/08 23:53:46 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,29 +79,21 @@ int	render_img(t_scr *scr)
 
 	y = 0;
 	stats = &scr->stats;
-	// double width_unit = fabs(stats->max_x - stats->min_x) / W_WIDTH;
-	// double height_unit = fabs(stats->max_y - stats->min_y) / W_HEIGHT;
+
+	double width_unit = fabs(stats->max_x - stats->min_x) / W_WIDTH;
+	double height_unit = fabs(stats->max_y - stats->min_y) / W_HEIGHT;
+
 	while (y <= W_HEIGHT)
 	{
 		x = 0;
 		while (x <= W_WIDTH)
 		{
-			// coordenates = (t_cx) {
-			// 	(stats->min_x + width_unit * x),
-			// 	(stats->min_y + height_unit * y)
-			// };
-			coordenates = (t_cx){
-				(((x - W_WIDTH / 2) / stats->zoom) + stats->offset_x) / ZM,
-				(((W_HEIGHT / 2 - y) / stats->zoom) + stats->offset_y) / ZM
+			coordenates = (t_cx) {
+				(stats->min_x + width_unit * x),
+				(stats->min_y + height_unit * y)
 			};
+
 			i = scr->f(coordenates, scr->point, stats->it);
-			// if (x * y % 10000 == 0)
-			// {
-			// 	printf("%d| %f, ", x  * y / 10000,  coordenates.real);
-			// 	printf("%f\n", coordenates.imag);
-			// }
-			if (coordenates.real == 0.0 && coordenates.imag == 0.0)
-				printf("here\n");
 			color = get_color(C1, C2, i, stats);
 
 			// * Image canvas (what we see, not the complex plane);
