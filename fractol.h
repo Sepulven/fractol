@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:52:02 by asepulve          #+#    #+#             */
-/*   Updated: 2024/07/07 01:04:54 by asepulve         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:34:25 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 # define MSG "Invalid options!\n LIST OF OPTIONS:\n m-> Mandelbrot\n c-> Celtic\n a-> Alien \n \
 j-> Julia \n\t(needs to specify two float parameters)\n b-> Burning ship \n"
 # define M_SIZE 148
+
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
 
 typedef struct s_cx
 {	
