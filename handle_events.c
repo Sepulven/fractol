@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:43:41 by asepulve          #+#    #+#             */
-/*   Updated: 2024/07/06 02:15:17 by asepulve         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:28:58 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,22 @@ int	key_handler(int key, t_scr *scr)
 
 void	event_handler(int key, int x, int y, t_scr *scr)
 {
+	(void)x;(void) y;
 	if (key == 4)
 	{
+		scr->stats.min_x /= 1.1;
+		scr->stats.max_x /= 1.1;
+		scr->stats.min_y /= 1.1;
+		scr->stats.max_y /= 1.1;
 		printf("Scroll In\n");
-		scr->stats.zoom *= 2;
-		scr->stats.offset_x += x / scr->stats.zoom;
-		scr->stats.offset_y += y / scr->stats.zoom;
 	}
 	if (key == 5)
 	{
+		scr->stats.min_x *= 1.1;
+		scr->stats.max_x *= 1.1;
+		scr->stats.min_y *= 1.1;
+		scr->stats.max_y *= 1.1;
 		printf("Scroll out\n");
-		scr->stats.zoom /= 2;
 	}
 	render_img(scr);
 	mlx_put_image_to_window(scr->mlx, scr->win, scr->img.fractol, 0, 0);
