@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:41:54 by asepulve          #+#    #+#             */
-/*   Updated: 2024/07/28 23:26:18 by asepulve         ###   ########.fr       */
+/*   Updated: 2024/07/29 00:17:44 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,21 +128,14 @@ int	main(int argc, char *argv[])
 
 	// * Starting point of x
 	stats->min_x = -2.0;
-	stats->max_x = 1;
+	stats->max_x = 1.0;
 
 	// * Starting point of y
-	stats->min_y = -1;
-	stats->max_y = 1;
-
-
+	stats->min_y = -1.0;
+	stats->max_y = 1.0;
 
 
 	printf("%f %f %f %f \n", stats->min_x, stats->max_x, stats->min_y, stats->max_y);
-
-
-
-
-
 
 	event_handler(0, 0, 0, &scr);
 	mlx_hook(scr.win, 17, 1L << 17, &destroy_window, &scr);
