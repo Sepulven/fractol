@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:43:41 by asepulve          #+#    #+#             */
-/*   Updated: 2024/07/29 01:00:58 by asepulve         ###   ########.fr       */
+/*   Updated: 2024/07/30 22:26:06 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	key_handler(int key, t_scr *scr)
 		|| key == XK_KP_Subtract || key == XK_KP_Add
 		|| key == '1' || key == '2' || key == '3')
 	{
-		printf("here\n");
 		if (strchr("123", key))
 			scr->stats.color = key;
 		if (key == XK_KP_Add)
@@ -85,9 +84,6 @@ int	key_handler(int key, t_scr *scr)
 */
 void	event_handler(int key, int x, int y, t_scr *scr)
 {
-	float x_span = fabs(scr->stats.max_x - scr->stats.min_x);
-	float y_span = fabs(scr->stats.max_y - scr->stats.min_y);
-
 	if (x == 0 && y == 0)
 	{
 		render_img(scr);
@@ -95,12 +91,8 @@ void	event_handler(int key, int x, int y, t_scr *scr)
 		return ;
 	}
 
-	printf("x_span: %f, y_span: %f\n", x_span, y_span);
-	
-	scr->stats.min_x += x * (x_span / W_WIDTH);
-	scr->stats.max_x = scr->stats.min_x + x_span;
-	scr->stats.min_y += y * (y_span / W_HEIGHT);
-	scr->stats.max_x = scr->stats.max_y + y_span;
+
+	(void)key;
 
 	if (key == SCROLL_DOWN)
 	{
@@ -118,6 +110,18 @@ void	event_handler(int key, int x, int y, t_scr *scr)
 		scr->stats.min_y *= 1.1;
 		scr->stats.max_y *= 1.1;
 	}
+
+	float x_span = fabs(scr->stats.max_x - scr->stats.min_x);
+	float y_span = fabs(scr->stats.max_y - scr->stats.min_y);
+
+	printf("x_span: %f, y_span: %f\n", x_span, y_span);
+	printf("--------------------------------------------------\n");
+
+	scr->stats.min_x += (x * (x_span / (W_WIDTH/2))) / 2;
+	scr->stats.max_x = scr->stats.min_x + x_span;
+	scr->stats.min_y -= (y * (y_span / (W_HEIGHT/2))) / 2;
+	scr->stats.max_y = scr->stats.min_y + y_span;
+
 	render_img(scr);
 	mlx_put_image_to_window(scr->mlx, scr->win, scr->img.fractol, 0, 0);
 }
