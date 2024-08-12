@@ -6,7 +6,7 @@
 /*   By: asepulve <asepulve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:43:41 by asepulve          #+#    #+#             */
-/*   Updated: 2024/07/30 22:26:06 by asepulve         ###   ########.fr       */
+/*   Updated: 2024/08/12 23:53:56 by asepulve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,21 @@ void	event_handler(int key, int x, int y, t_scr *scr)
 		return ;
 	}
 
+	// (void)key;
+	// float x_span = fabs(scr->stats.max_x - scr->stats.min_x);
+	// float y_span = fabs(scr->stats.max_y - scr->stats.min_y);
 
-	(void)key;
+	// printf("x_span: %f, y_span: %f\n", x_span, y_span);
+
+	// printf("----> %f", x_span * ((float)x / (W_WIDTH/2)));
+	// printf("--------------------------------------------------\n");
+	// scr->stats.min_x += (x_span) * ((float)x / (W_WIDTH/2));
+	// scr->stats.max_x = scr->stats.min_x + x_span;
+	// scr->stats.min_y -= (y_span) * ((float)y / (W_HEIGHT/2));
+	// scr->stats.max_y = scr->stats.min_y + y_span;
+
+	float width = fabs(scr->stats.max_x - scr->stats.min_x);
+	float heigth = fabs(scr->stats.max_y - scr->stats.min_y);
 
 	if (key == SCROLL_DOWN)
 	{
@@ -111,16 +124,24 @@ void	event_handler(int key, int x, int y, t_scr *scr)
 		scr->stats.max_y *= 1.1;
 	}
 
-	float x_span = fabs(scr->stats.max_x - scr->stats.min_x);
-	float y_span = fabs(scr->stats.max_y - scr->stats.min_y);
 
-	printf("x_span: %f, y_span: %f\n", x_span, y_span);
-	printf("--------------------------------------------------\n");
+	float zoom_width = fabs(scr->stats.max_x - scr->stats.min_x);
+	float zoom_heigth = fabs(scr->stats.max_y - scr->stats.min_y);
 
-	scr->stats.min_x += (x * (x_span / (W_WIDTH/2))) / 2;
-	scr->stats.max_x = scr->stats.min_x + x_span;
-	scr->stats.min_y -= (y * (y_span / (W_HEIGHT/2))) / 2;
-	scr->stats.max_y = scr->stats.min_y + y_span;
+	float x_0 = 0, y_0 = 0;
+	// * x_0 and y_0 are the coordenates of the new point;
+	float rel_x = x_0 / width;
+	float rel_y = y_0 / heigth;
+	
+	// * Calc the coordenates of the visible area
+	scr->stats.min_x = fmax(0, x_0 - rel_x * zoom_width);
+	scr->stats.min_y = fmax(0, y_0 - rel_y * zoom_heigth);
+
+	scr->stats.max_x = fmax(width, scr->stats.min_x - width);
+	scr->stats.max_y = fmax(heigth, scr->stats.max_y - heigth);
+
+	// * Adjust the visible area so it fits inside the image
+
 
 	render_img(scr);
 	mlx_put_image_to_window(scr->mlx, scr->win, scr->img.fractol, 0, 0);
